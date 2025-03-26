@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("./server").default;
+const app = require("./server");
 
 describe("GET /", () => {
   it("should return 'Hello, Jenkins!'", async () => {
