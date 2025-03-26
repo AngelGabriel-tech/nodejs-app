@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "myusername03/nodejs-jenkins-demo"
+        DOCKER_TAG = "latest"
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/AngelGabriel-tech/nodejs-app.git'
+            }
+        }
+     
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'docker run --rm $DOCKER_IMAGE:$DOCKER_TAG npm test'
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                withDockerRegistry([credentialsID: 'docker-hub-credentials', url: '']) {
+                sh 'docker push $DOCKER_IMAGE:$DOCKER_TAG'
+
+                }
+            }
+        }
+
+    }
+
+
+    post {
+        success {
+            echo 'Build and deployment successful!'
+        }
+        failure {
+            echo 'Build failed, check the logs!'
+        }
+    }
+}
