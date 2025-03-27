@@ -2,14 +2,11 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Install Mocha globally
-RUN npm install -g mocha
-
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install only production dependencies
-RUN npm install --omit=dev
+# Install all dependencies, including devDependencies
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
@@ -18,4 +15,4 @@ COPY . .
 EXPOSE 3000
 
 # Default command to run tests
-CMD ["npm", "test"]
+CMD ["node", "server.js"]
