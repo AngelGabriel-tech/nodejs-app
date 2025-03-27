@@ -2,9 +2,7 @@
   "name": "nodejs-jenkins-demo",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "mocha"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
