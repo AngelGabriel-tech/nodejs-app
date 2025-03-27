@@ -21,7 +21,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'docker run --rm $DOCKER_IMAGE:$DOCKER_TAG npm test'
+                sh 'docker run --rm $DOCKER_IMAGE:$DOCKER_TAG npx mocha'
             }
         }
 
