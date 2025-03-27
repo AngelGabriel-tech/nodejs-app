@@ -1,14 +1,19 @@
 const request = require("supertest");
+const chai = require("chai");
 const app = require("./server");
+
+const expect = chai.expect;
 
 let server;
 
-beforeAll(() => {
+before((done) => {
   // Start the server on a random available port
-  server = app.listen(0);
+  server = app.listen(0, () => {
+    done();
+  });
 });
 
-afterAll((done) => {
+after((done) => {
   // Close the server after tests are done
   server.close(() => {
     done();
@@ -16,11 +21,14 @@ afterAll((done) => {
 });
 
 describe("GET /", () => {
-  it("should return 'Hello, Jenkins!'", async () => {
-    const res = await request(server).get("/");
-    expect(res.text).toBe("Hello, Jenkins!");
-    expect(res.statusCode).toBe(200);
+  it("should return 'Hello, Jenkins!'", (done) => {
+    request(server)
+      .get("/")
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.text).to.equal("Hello, Jenkins!");
+        expect(res.status).to.equal(200);
+        done();
+      });
   });
 });
-
-
