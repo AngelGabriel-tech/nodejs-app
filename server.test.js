@@ -10,7 +10,9 @@ beforeAll(() => {
 
 afterAll((done) => {
   // Close the server after tests are done
-  server.close(done);
+  server.close(() => {
+    done();
+  });
 });
 
 describe("GET /", () => {
@@ -20,4 +22,5 @@ describe("GET /", () => {
     expect(res.statusCode).toBe(200);
   });
 });
+
 
