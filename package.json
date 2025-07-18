@@ -1,16 +1,31 @@
 {
   "name": "nodejs-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "Modern Node.js application with Express and Pino logging",
+  "main": "app/server.js",
   "scripts": {
+    "start": "node app/server.js",
+    "dev": "node --watch app/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app/server.js"
+    "docker:build": "docker build -t node-app .",
+    "docker:run": "docker run -p 3000:3000 node-app",
+    "publish:nexus": "npm publish --registry https://your-nexus-server.com/repository/npm-private/"
   },
+  "keywords": ["nodejs", "express", "pino", "logging"],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
-    "express": "4.18.2",
-    "pino": "8.11.0"
+    "express": "^4.19.2",
+    "pino": "^9.4.0",
+    "pino-http": "^10.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "publishConfig": {
+    "registry": "https://your-nexus-server.com/repository/npm-private/"
   }
 }
