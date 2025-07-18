@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker:build": "docker build -t node-app .",
     "docker:run": "docker run -p 3000:3000 node-app",
-    "publish:nexus": "npm publish --registry https://your-nexus-server.com/repository/npm-private/"
+    "publish:nexus": "npm publish --registry http://your-nexus-server.com:8081/repository/npm-public/"
   },
   "keywords": ["nodejs", "express", "pino", "logging"],
   "author": "",
@@ -20,12 +20,13 @@
   "dependencies": {
     "express": "^4.19.2",
     "pino": "^9.4.0",
-    "pino-http": "^10.3.0"
+    "pino-http": "^10.3.0",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
   },
   "publishConfig": {
-    "registry": "https://your-nexus-server.com/repository/npm-private/"
+    "registry": "http://your-nexus-server.com:8081/repository/npm-public/"
   }
 }
